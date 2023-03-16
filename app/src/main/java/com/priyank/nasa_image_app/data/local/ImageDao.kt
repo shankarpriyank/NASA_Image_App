@@ -11,6 +11,9 @@ interface ImageDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertImage(image: ImageInfo)
 
-    @Query("SELECT * FROM imageTable")
+    @Query("SELECT * FROM imageTable ORDER BY date ASC ")
     suspend fun getAllImages(): List<ImageInfo>
+
+    @Query("DELETE FROM imagetable")
+    fun clearTable()
 }

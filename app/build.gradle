@@ -9,12 +9,12 @@ plugins {
 android {
 
     namespace 'com.priyank.nasa_image_app'
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.priyank.nasa_image_app"
         minSdk 24
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -41,7 +41,7 @@ android {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion '1.1.1'
+        kotlinCompilerExtensionVersion '1.4.2'
     }
     packagingOptions {
         resources {
@@ -67,10 +67,9 @@ dependencies {
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
 
     //Dagger-Hilt
-    implementation "com.google.dagger:hilt-android:2.40.5"
-    kapt "com.google.dagger:hilt-android-compiler:2.40.5"
+    implementation "com.google.dagger:hilt-android:2.44"
+    kapt "com.google.dagger:hilt-android-compiler:2.44"
     implementation "androidx.hilt:hilt-navigation-compose:1.0.0"
-    implementation "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03"
 
     //Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
@@ -106,4 +105,6 @@ dependencies {
 
     //Pull Down To Refresh
     implementation "com.google.accompanist:accompanist-swiperefresh:0.20.0"
+
+
 }

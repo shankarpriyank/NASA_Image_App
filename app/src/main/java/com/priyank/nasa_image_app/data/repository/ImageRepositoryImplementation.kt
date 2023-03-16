@@ -22,6 +22,7 @@ class ImageRepositoryImplementation(
             emit(Resource.Loading(data = imagesFromLocalDB))
             try {
                 val images = ImagesAPI.getImages()
+                ImageDao.clearTable()
                 for (image in images) {
                     ImageDao.insertImage(image)
                 }
