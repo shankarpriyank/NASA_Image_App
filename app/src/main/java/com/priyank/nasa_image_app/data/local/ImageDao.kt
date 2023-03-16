@@ -5,7 +5,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.priyank.nasa_image_app.data.model.ImageInfo
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ImageDao {
@@ -13,5 +12,5 @@ interface ImageDao {
     suspend fun insertImage(image: ImageInfo)
 
     @Query("SELECT * FROM imageTable")
-    fun getAllImages(): Flow<List<ImageInfo>>
+    suspend fun getAllImages(): List<ImageInfo>
 }

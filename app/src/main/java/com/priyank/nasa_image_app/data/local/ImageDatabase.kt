@@ -4,7 +4,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.priyank.nasa_image_app.data.model.ImageInfo
 
-@Database(entities = [ImageInfo::class], version = 0)
+@Database(entities = [ImageInfo::class], version = 1)
 abstract class ImageDatabase : RoomDatabase() {
-    abstract val dao: ImageDao
+    abstract val imageDao: ImageDao
 }
