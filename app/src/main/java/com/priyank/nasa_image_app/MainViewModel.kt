@@ -10,6 +10,7 @@ import com.priyank.nasa_image_app.presentation.model.ImageInfoState
 import com.priyank.nasa_image_app.util.ConnectivityObserver
 import com.priyank.nasa_image_app.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -29,7 +30,7 @@ class MainViewModel @Inject constructor(
         networkObserver.observe().onEach { Log.d("Network Status", it.toString()) }
             .launchIn(viewModelScope)
 
-        viewModelScope.launch {
+        GlobalScope.launch {
             imageRepository.getImages().onEach { result ->
                 when (result) {
                     is Resource.Success -> {
