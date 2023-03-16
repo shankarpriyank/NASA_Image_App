@@ -10,7 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.priyank.nasa_image_app.ui.theme.NASA_Image_AppTheme
+import com.priyank.nasa_image_app.presentation.ui.theme.NASA_Image_AppTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
