@@ -1,4 +1,4 @@
-package com.priyank.nasa_image_app.ui.theme
+package com.priyank.nasa_image_app.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
