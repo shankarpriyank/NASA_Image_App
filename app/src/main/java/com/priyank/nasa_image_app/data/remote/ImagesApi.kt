@@ -1,6 +1,6 @@
 package com.priyank.nasa_image_app.data.remote
 
-import com.priyank.nasa_image_app.data.ImageInfo
+import com.priyank.nasa_image_app.data.model.ImageInfo
 import retrofit2.http.GET
 
 interface ImagesApi {
