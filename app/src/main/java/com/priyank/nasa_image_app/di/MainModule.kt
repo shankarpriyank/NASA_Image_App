@@ -6,6 +6,8 @@ import com.priyank.nasa_image_app.data.local.ImageDatabase
 import com.priyank.nasa_image_app.data.remote.ImagesApi
 import com.priyank.nasa_image_app.data.repository.ImageRepositoryImplementation
 import com.priyank.nasa_image_app.domain.repository.ImageRepository
+import com.priyank.nasa_image_app.util.ConnectivityObserver
+import com.priyank.nasa_image_app.util.NetworkConnectivityObserver
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -40,5 +42,11 @@ class MainModule {
     @Singleton
     fun provideImageRepository(imagesApi: ImagesApi, db: ImageDatabase): ImageRepository {
         return ImageRepositoryImplementation(db.imageDao, imagesApi)
+    }
+
+    @Provides
+    @Singleton
+    fun provideNetworkConnectivityObserver(context: Application): ConnectivityObserver {
+        return NetworkConnectivityObserver(context.applicationContext)
     }
 }

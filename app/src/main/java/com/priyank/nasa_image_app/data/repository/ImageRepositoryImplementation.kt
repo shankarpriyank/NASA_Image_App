@@ -13,7 +13,7 @@ class ImageRepositoryImplementation(
     private val ImagesAPI: ImagesApi
 ) : ImageRepository {
 
-    //Todo: Handle errors in a better way
+    // Todo: Handle errors in a better way
 
     override fun getImages(): Flow<Resource<List<ImageInfo>>> {
         return flow {
