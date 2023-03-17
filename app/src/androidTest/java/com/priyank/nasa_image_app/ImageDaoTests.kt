@@ -59,7 +59,7 @@ class ImageDaoTests {
         val result = imageDao.getAllImages()
 
         // THEN
-        assertThat(result.size, `is`(100))
+        assertThat(result.size, `is`(1))
         assertThat(result[0].id, `is`(image.id))
         assertThat(result[0].title, `is`(image.title))
         assertThat(result[0].url, `is`(image.url))

@@ -1,5 +1,6 @@
 package com.priyank.nasa_image_app
 
+import androidx.activity.compose.setContent
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
@@ -20,7 +21,7 @@ class NavigationTests {
     fun testNavigation() {
         // Create a TestNavHostController
         val navController = TestNavHostController(composeTestRule.activity)
-        composeTestRule.setContent {
+        composeTestRule.activity.setContent {
             SetupNavGraph(navController = navController, startDestination = Screen.ImageGrid.route)
         }
         // Check if the start destination is correct
