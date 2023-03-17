@@ -50,7 +50,7 @@ fun imageItem(image: ImageInfo, vm: MainViewModel, navHostController: NavHostCon
                 )
         )
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.BottomCenter) {
-            Text(text = image.id.toString()!!, style = TextStyle(color = Color.White, fontSize = 16.sp), modifier = Modifier.padding(6.dp))
+            Text(text = image.title.toString()!!, style = TextStyle(color = Color.White, fontSize = 16.sp), modifier = Modifier.padding(6.dp))
         }
     }
 }

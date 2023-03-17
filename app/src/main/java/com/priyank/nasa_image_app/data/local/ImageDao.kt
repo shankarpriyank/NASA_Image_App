@@ -14,6 +14,6 @@ interface ImageDao {
     @Query("SELECT * FROM imageTable ORDER BY date ASC ")
     suspend fun getAllImages(): List<ImageInfo>
 
-    @Query("DELETE FROM imagetable")
+    @Query("DELETE  FROM imagetable")
     fun clearTable()
 }
