@@ -69,7 +69,7 @@ jobs:
           arch: x86_64
           profile: pixel
           script: |
-            ./gradlew :android:app:connectedCheck
+            ./gradlew connectedCheck
 
       - name: Upload Test Reports
         if: ${{ always() }}
