@@ -6,9 +6,9 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.priyank.nasa_image_app.presentation.ImagesGridScreen
+import androidx.navigation.compose.rememberNavController
+import com.priyank.nasa_image_app.navigation.SetupNavGraph
 import com.priyank.nasa_image_app.presentation.ui.theme.NASA_Image_AppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,14 +23,14 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    MainScreen()
+
+                    val navController = rememberNavController()
+                    SetupNavGraph(
+                        navController = navController,
+                        startDestination = "imageGrid"
+                    )
                 }
             }
         }
     }
-}
-
-@Composable
-fun MainScreen() {
-    ImagesGridScreen()
 }

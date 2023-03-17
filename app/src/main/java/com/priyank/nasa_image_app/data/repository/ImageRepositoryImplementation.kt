@@ -1,5 +1,6 @@
 package com.priyank.nasa_image_app.data.repository
 
+import android.util.Log
 import com.priyank.nasa_image_app.data.local.ImageDao
 import com.priyank.nasa_image_app.data.model.ImageInfo
 import com.priyank.nasa_image_app.data.remote.ImagesApi
@@ -21,7 +22,9 @@ class ImageRepositoryImplementation(
             val imagesFromLocalDB = ImageDao.getAllImages()
             emit(Resource.Loading(data = imagesFromLocalDB))
             try {
+                Log.d("Network CAll", "Started")
                 val images = ImagesAPI.getImages()
+                Log.e("Network CAll", "Completed")
                 ImageDao.clearTable()
                 for (image in images) {
                     ImageDao.insertImage(image)
@@ -31,15 +34,13 @@ class ImageRepositoryImplementation(
             } catch (e: java.net.UnknownHostException) {
                 emit(
                     Resource.Error(
-                        message = "Please Check Your Internet Connection",
-                        data = imagesFromLocalDB
-
+                        message = "Please Check Your Internet Connection"
                     )
                 )
             } catch (e: Exception) {
                 Resource.Error(
                     message = "Something Went Wrong",
-                    data = imagesFromLocalDB
+                    data = null
 
                 )
             }

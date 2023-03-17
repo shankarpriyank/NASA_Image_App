@@ -5,18 +5,20 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavHostController
 import com.priyank.nasa_image_app.domain.repository.ImageRepository
+import com.priyank.nasa_image_app.navigation.Screen
 import com.priyank.nasa_image_app.presentation.model.ImageInfoState
 import com.priyank.nasa_image_app.util.ConnectivityObserver
 import com.priyank.nasa_image_app.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@OptIn(DelicateCoroutinesApi::class)
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val imageRepository: ImageRepository,
@@ -27,28 +29,50 @@ class MainViewModel @Inject constructor(
     val state: State<ImageInfoState> = _state
 
     init {
-        networkObserver.observe().onEach { Log.d("Network Status", it.toString()) }
-            .launchIn(viewModelScope)
+//        networkObserver.observe().onEach { Log.d("Network Status", it.toString()) }
+//            .launchIn(GlobalScope)
+        viewModelScope.launch {
+            getImages()
+        }
+    }
 
-        GlobalScope.launch {
-            imageRepository.getImages().onEach { result ->
-                when (result) {
-                    is Resource.Success -> {
+    fun openImageDetailScreen(id: Int, navHostController: NavHostController) {
+        navHostController.navigate(Screen.ImageDetail.withArgs(id))
+    }
+
+    suspend fun getImages() {
+
+        Log.d("Get Images", "Function Called")
+
+        imageRepository.getImages().onEach { result ->
+            when (result) {
+
+                is Resource.Success -> {
+
+                    _state.value = state.value.copy(
+                        images = result.data,
+                        loading = false
+                    )
+                }
+
+                is Resource.Loading -> {
+                    if (!result.data.isNullOrEmpty()) {
                         _state.value = state.value.copy(
-                            images = result.data!!,
+                            images = result.data,
                             loading = false
                         )
-                    }
-
-                    is Resource.Loading -> {
-                        TODO()
-                    }
-
-                    is Resource.Error -> {
-                        TODO()
+                    } else {
+                        _state.value = state.value.copy(
+                            images = result.data,
+                            loading = true
+                        )
                     }
                 }
-            }.collectLatest { }
-        }
+
+                is Resource.Error -> {
+                    Log.d("Error With Data ", "NULL ${result.data.isNullOrEmpty()}")
+                }
+            }
+        }.collectLatest { }
     }
 }

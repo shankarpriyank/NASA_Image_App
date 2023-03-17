@@ -35,7 +35,7 @@ class MainModule {
     fun provideImageDatabase(app: Application): ImageDatabase {
         return Room.databaseBuilder(
             app, ImageDatabase::class.java, "image_db"
-        ).build()
+        ).fallbackToDestructiveMigration().build()
     }
 
     @Provides

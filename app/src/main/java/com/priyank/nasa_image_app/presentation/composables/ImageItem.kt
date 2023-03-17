@@ -13,21 +13,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
+import com.priyank.nasa_image_app.MainViewModel
 import com.priyank.nasa_image_app.data.model.ImageInfo
 
 @Composable
-fun imageItem(image: ImageInfo) {
-    val context = LocalContext.current
-
+fun imageItem(image: ImageInfo, vm: MainViewModel, navHostController: NavHostController) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .clickable { }
+            .clickable { openImage(image, vm, navHostController) }
     ) {
         AsyncImage(
             model = image.url, contentDescription = "",
@@ -51,7 +50,12 @@ fun imageItem(image: ImageInfo) {
                 )
         )
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.BottomCenter) {
-            Text(text = image.title!!, style = TextStyle(color = Color.White, fontSize = 16.sp), modifier = Modifier.padding(6.dp))
+            Text(text = image.id.toString()!!, style = TextStyle(color = Color.White, fontSize = 16.sp), modifier = Modifier.padding(6.dp))
         }
     }
+}
+fun openImage(image: ImageInfo, vm: MainViewModel, navHostController: NavHostController) {
+    val imageList = vm.state.value.images!!
+    val index = imageList!!.indexOf(image)
+    vm.openImageDetailScreen(navHostController = navHostController, id = index)
 }
