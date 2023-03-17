@@ -40,8 +40,8 @@ jobs:
           path: '**/build/reports/tests/'
 
   android_test_job:
-    name: Test
-    runs-on: ubuntu-latest
+    name: Instrumented Test
+    runs-on: macos-latest
     continue-on-error: true
     steps:
 
