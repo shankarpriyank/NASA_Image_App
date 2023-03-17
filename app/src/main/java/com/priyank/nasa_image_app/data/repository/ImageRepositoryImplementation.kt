@@ -1,6 +1,5 @@
 package com.priyank.nasa_image_app.data.repository
 
-import android.util.Log
 import com.priyank.nasa_image_app.data.local.ImageDao
 import com.priyank.nasa_image_app.data.model.ImageInfo
 import com.priyank.nasa_image_app.data.remote.ImagesApi
@@ -32,7 +31,6 @@ class ImageRepositoryImplementation(
             }
             emit(Resource.Loading(data = imagesFromLocalDB))
             try {
-                Log.d("Network CAll", "Started")
                 withContext(Dispatchers.IO) {
                     images = ImagesAPI.getImages()
                 }
@@ -45,7 +43,6 @@ class ImageRepositoryImplementation(
                         ImageDao.insertImage(image)
                     }
                     newlyCachedImages = ImageDao.getAllImages()
-                    Log.d("Network CAll", "Completed")
                 }
 
                 emit(Resource.Success(data = newlyCachedImages))
@@ -56,14 +53,12 @@ class ImageRepositoryImplementation(
                     )
                 )
             } catch (e: Exception) {
-                Log.e("Error", e.printStackTrace().toString())
                 Resource.Error(
                     message = "Something Went Wrong",
                     data = null
 
                 )
             } catch (e: java.net.SocketException) {
-                Log.e("Error", e.printStackTrace().toString())
                 e.printStackTrace()
                 Resource.Error(
                     message = "Something Went Wrong",
