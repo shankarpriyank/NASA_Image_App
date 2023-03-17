@@ -36,6 +36,6 @@ class NavigationTests {
 
         // Navigate back to the ImageGrid screen
         navController.navigate(Screen.ImageGrid.route)
-        assertThat(navController.currentDestination?.route, `is`(Screen.ImageDetail.route))
+        assertThat(navController.currentDestination?.route, `is`(Screen.ImageGrid.route))
     }
 }
