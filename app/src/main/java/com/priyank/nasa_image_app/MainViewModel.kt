@@ -1,19 +1,19 @@
 package com.priyank.nasa_image_app
 
 import android.util.Log
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavHostController
+import com.priyank.nasa_image_app.data.model.ImageInfo
 import com.priyank.nasa_image_app.domain.repository.ImageRepository
 import com.priyank.nasa_image_app.navigation.Screen
-import com.priyank.nasa_image_app.presentation.model.ImageInfoState
 import com.priyank.nasa_image_app.util.ConnectivityObserver
 import com.priyank.nasa_image_app.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -26,8 +26,11 @@ class MainViewModel @Inject constructor(
     private val networkObserver: ConnectivityObserver
 ) : ViewModel() {
 
-    private val _state = mutableStateOf(ImageInfoState())
-    val state: State<ImageInfoState> = _state
+    private val _imageList = MutableStateFlow(emptyList<ImageInfo>())
+    val imageList = _imageList.asStateFlow()
+
+    private val _loading = MutableStateFlow(true)
+    val isloading = _loading.asStateFlow()
 
     init {
         networkObserver.observe().onEach { Log.d("Network Status", it.toString()) }
@@ -49,24 +52,16 @@ class MainViewModel @Inject constructor(
             when (result) {
 
                 is Resource.Success -> {
-
-                    _state.value = state.value.copy(
-                        images = result.data,
-                        loading = false
-                    )
+                    _imageList.value = result.data!!
+                    _loading.value = false
                 }
 
                 is Resource.Loading -> {
                     if (!result.data.isNullOrEmpty()) {
-                        _state.value = state.value.copy(
-                            images = result.data,
-                            loading = false
-                        )
+                        _imageList.value = result.data!!
+                        _loading.value = false
                     } else {
-                        _state.value = state.value.copy(
-                            images = result.data,
-                            loading = true
-                        )
+                        _loading.value = false
                     }
                 }
 

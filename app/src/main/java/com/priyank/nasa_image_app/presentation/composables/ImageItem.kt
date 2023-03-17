@@ -55,7 +55,7 @@ fun imageItem(image: ImageInfo, vm: MainViewModel, navHostController: NavHostCon
     }
 }
 fun openImage(image: ImageInfo, vm: MainViewModel, navHostController: NavHostController) {
-    val imageList = vm.state.value.images!!
+    val imageList = vm.imageList.value
     val index = imageList!!.indexOf(image)
     vm.openImageDetailScreen(navHostController = navHostController, id = index)
 }

@@ -10,10 +10,13 @@ import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.priyank.nasa_image_app.MainViewModel
@@ -31,7 +34,8 @@ fun imageDetailScreen(
     // Remember a CoroutineScope to be able to launch
     val coroutineScope = rememberCoroutineScope()
 
-    val imageList = vm.state.value.images
+    val imageList = vm.imageList.collectAsState()
+    val isLoading = vm.isloading.collectAsState()
     val index = id
     LaunchedEffect(key1 = true) {
 
@@ -40,8 +44,14 @@ fun imageDetailScreen(
         }
     }
 
-    if (vm.state.value.loading) {
-        Text(text = "Loading")
+    if (isLoading.value) {
+        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+
+            Text(text = "Loading", fontWeight = FontWeight.Bold, fontSize = 100.sp)
+
+            // Todo Figure Out Why this lottie animation is not visible
+            //  Loading()
+        }
     } else {
 
         Box(modifier = Modifier.fillMaxSize()) {
@@ -53,7 +63,7 @@ fun imageDetailScreen(
                     .align(Alignment.Center),
                 state = listState
             ) {
-                items(imageList!!) {
+                items(imageList.value) {
                     imageDetailItem(image = it, navHostController, vm)
                 }
             }
