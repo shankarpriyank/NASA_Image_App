@@ -21,7 +21,7 @@ import org.junit.runner.RunWith
 
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
-class ImageDaoTest {
+class ImageDaoTests {
 
     private lateinit var imageDao: ImageDao
     private lateinit var db: ImageDatabase
@@ -73,7 +73,7 @@ class ImageDaoTest {
             id = 1,
             title = "Test Image",
             url = "https://example.com/image.jpg",
-            date = "2022-03-17", copyright = "", explanation = "", hdurl ="" , media_type ="" , service_version = ""
+            date = "2022-03-17", copyright = "", explanation = "", hdurl = "", media_type = "", service_version = ""
         )
         imageDao.insertImage(image)
 

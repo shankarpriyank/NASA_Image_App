@@ -6,6 +6,7 @@ import com.priyank.nasa_image_app.data.remote.ImagesApi
 import com.priyank.nasa_image_app.domain.repository.ImageRepository
 import com.priyank.nasa_image_app.util.Resource
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.withContext
@@ -47,18 +48,21 @@ class ImageRepositoryImplementation(
 
                 emit(Resource.Success(data = newlyCachedImages))
             } catch (e: java.net.UnknownHostException) {
+                delay(1000)
                 emit(
                     Resource.Error(
                         message = "Please Check Your Internet Connection"
                     )
                 )
             } catch (e: Exception) {
+                delay(1000)
                 Resource.Error(
                     message = "Something Went Wrong",
                     data = null
 
                 )
             } catch (e: java.net.SocketException) {
+                delay(1000)
                 e.printStackTrace()
                 Resource.Error(
                     message = "Something Went Wrong",

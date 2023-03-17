@@ -12,7 +12,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -25,6 +27,8 @@ class MainViewModel @Inject constructor(
     private val imageRepository: ImageRepository,
     private val networkObserver: ConnectivityObserver
 ) : ViewModel() {
+    private val _eventFlow = MutableSharedFlow<UIEvent>()
+    val eventFlow = _eventFlow.asSharedFlow()
 
     private val _imageList = MutableStateFlow(emptyList<ImageInfo>())
     val imageList = _imageList.asStateFlow()
@@ -66,10 +70,13 @@ class MainViewModel @Inject constructor(
                 }
 
                 is Resource.Error -> {
-                    Log.d("Error With Data ", "NULL ${result.data.isNullOrEmpty()}")
+                    _eventFlow.emit(UIEvent.ShowToast(result.message ?: "Something Went Wrong"))
                 }
             }
         }.collect {
         }
+    }
+    sealed class UIEvent {
+        data class ShowToast(val message: String) : UIEvent()
     }
 }
