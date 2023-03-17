@@ -39,32 +39,32 @@ jobs:
           name: test-reports
           path: '**/build/reports/tests/'
 
-  android_test_job:
-    name: Instrumented Test
+  android-app-tests:
+    name : Instrumented Tests
     runs-on: macos-latest
-    continue-on-error: true
     steps:
-        - name: Checkout
-          uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
 
-          - name: Set Up JDK
-            uses: actions/setup-java@v1
-            with:
-              java-version: 1.11
+      - name: Set Up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.11
 
-          - name: Setup Android SDK
-            uses: android-actions/setup-android@v2
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v2
 
-          - name: Generate local.properties
-            env:
-              LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES }}
-            run: echo $LOCAL_PROPERTIES > ./local.properties
+      - name: Generate local.properties
+        env:
+          LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES }}
+        run: echo $LOCAL_PROPERTIES > ./local.properties
 
-          - name: Run Tests
-            uses: reactivecircus/android-emulator-runner@v2
-            with:
-              script: |
-                ./gradlew :android:app:connectedCheck
+      - name: Run Tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          script: |
+            ./gradlew :android:app:connectedCheck
+
       - name: Upload Test Reports
         if: ${{ always() }}
         uses: actions/upload-artifact@v2
