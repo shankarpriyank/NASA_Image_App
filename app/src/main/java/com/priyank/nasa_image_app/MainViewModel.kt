@@ -49,7 +49,6 @@ class MainViewModel @Inject constructor(
             when (result) {
 
                 is Resource.Success -> {
-                    Log.e("Succcess", "Chaiye")
 
                     _state.value = state.value.copy(
                         images = result.data,
