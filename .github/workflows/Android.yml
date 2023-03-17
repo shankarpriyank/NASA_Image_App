@@ -41,27 +41,29 @@ jobs:
 
   android_test_job:
     name: Instrumented Test
-    runs-on: macos-latest
-    continue-on-error: true
+  runs-on: macos-latest
     steps:
+        - name: Checkout
+          uses: actions/checkout@v2
 
-      - name: Checkout
-        uses: actions/checkout@v2
+          - name: Set Up JDK
+            uses: actions/setup-java@v1
+            with:
+              java-version: 1.11
 
-      - name: Restore Cache
-        uses: actions/cache@v2
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
-      - name : Grant Permission
-        run : chmod +x gradlew
-      - name: "Run Instumented Tests"
-        uses: vgaidarji/android-github-actions-emulator@v1.0.1
+          - name: Setup Android SDK
+            uses: android-actions/setup-android@v2
 
+          - name: Generate local.properties
+            env:
+              LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES }}
+            run: echo $LOCAL_PROPERTIES > ./local.properties
+
+          - name: Run Tests
+            uses: reactivecircus/android-emulator-runner@v2
+            with:
+              script: |
+                ./gradlew :android:app:connectedCheck
       - name: Upload Test Reports
         if: ${{ always() }}
         uses: actions/upload-artifact@v2
