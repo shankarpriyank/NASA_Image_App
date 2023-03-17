@@ -41,8 +41,9 @@ jobs:
 
   android_test_job:
     name: Instrumented Test
-  runs-on: macos-latest
+    runs-on: macos-latest
     steps:
+
         - name: Checkout
           uses: actions/checkout@v2
 
