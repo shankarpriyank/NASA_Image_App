@@ -16,7 +16,7 @@ Key aspects of this app include:
 
 | Image 1   | Image 2   |
 |-----------|-----------|
-| <img src = "https://github.com/shankarpriyank/NASA_Image_App/assets/75121767/b69c7cde-0627-4b59-a597-e3d7620197eb" height = "400" width= "400"> | <img src = "https://github.com/shankarpriyank/NASA_Image_App/assets/75121767/ecf37956-3de3-4e19-862d-84d08248b282" height = "400" width= "400"> | 
+| <img src = "https://github.com/shankarpriyank/NASA_Image_App/assets/75121767/b69c7cde-0627-4b59-a597-e3d7620197eb" height = "500" width= "300"> | <img src = "https://github.com/shankarpriyank/NASA_Image_App/assets/75121767/ecf37956-3de3-4e19-862d-84d08248b282" height = "500" width= "300"> | 
 
 
 https://github.com/shankarpriyank/NASA_Image_App/assets/75121767/f3b2afdb-a4d5-4018-8152-4850afa2ac4f
