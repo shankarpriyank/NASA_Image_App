@@ -19,14 +19,13 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.priyank.nasa_image_app.MainViewModel
 import com.priyank.nasa_image_app.presentation.composables.imageItem
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable
-fun imagesGridScreen(vm: MainViewModel = hiltViewModel(), navHostController: NavHostController) {
+fun ImagesGridScreen(vm: MainViewModel, navHostController: NavHostController) {
     val context = LocalContext.current
 
     LaunchedEffect(key1 = true) {
@@ -48,13 +47,13 @@ fun imagesGridScreen(vm: MainViewModel = hiltViewModel(), navHostController: Nav
             //  Loading()
         }
     } else {
-        imageGrid(vm, navHostController)
+        ImageGrid(vm, navHostController)
     }
 }
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun imageGrid(vm: MainViewModel, navHostController: NavHostController) {
+fun ImageGrid(vm: MainViewModel, navHostController: NavHostController) {
     val imageList = vm.imageList.collectAsState()
 
     LazyVerticalStaggeredGrid(

@@ -17,15 +17,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.priyank.nasa_image_app.MainViewModel
 import com.priyank.nasa_image_app.presentation.composables.imageDetailItem
 import kotlinx.coroutines.launch
 
+
+
 @Composable
-fun imageDetailScreen(
-    vm: MainViewModel = hiltViewModel(),
+fun ImageDetailScreen(
+    vm: MainViewModel,
     navHostController: NavHostController,
     id: Int
 ) {
