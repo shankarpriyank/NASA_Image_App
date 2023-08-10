@@ -22,8 +22,6 @@ import com.priyank.nasa_image_app.MainViewModel
 import com.priyank.nasa_image_app.presentation.composables.imageDetailItem
 import kotlinx.coroutines.launch
 
-
-
 @Composable
 fun ImageDetailScreen(
     vm: MainViewModel,

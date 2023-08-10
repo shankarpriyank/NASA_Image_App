@@ -17,7 +17,8 @@ import com.priyank.nasa_image_app.presentation.ImagesGridScreen
 
 @Composable
 fun SetupNavGraph(
-    navController: NavHostController, startDestination: String
+    navController: NavHostController,
+    startDestination: String
 ) {
     NavHost(
         navController = navController, startDestination = startDestination
@@ -32,12 +33,15 @@ fun SetupNavGraph(
                     navHostController = navController
                 )
             }
-            composable(route = Screen.ImageDetail.route + "/{id}",
-                arguments = listOf(navArgument("id") {
-                    type = NavType.IntType
-                    defaultValue = 0
-                    nullable = false
-                })
+            composable(
+                route = Screen.ImageDetail.route + "/{id}",
+                arguments = listOf(
+                    navArgument("id") {
+                        type = NavType.IntType
+                        defaultValue = 0
+                        nullable = false
+                    }
+                )
             ) { entry ->
                 ImageDetailScreen(
                     vm = entry.sharedViewModel<MainViewModel>(navController = navController),
